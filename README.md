@@ -4,7 +4,7 @@ Brainsuck is an optimizing compiler prototype for the Brainfuck programming lang
 
 感谢原作者，这里将Brainsuck改为了maven编译版本，方便导入使用  
 vm options: -Xss8m  
-Program arguments: ../scripts/hanoi.b -0 2  
+Program arguments: ../scripts/hanoi.b -O 2  
 运行Interpreter类即可
 
 ## Licence

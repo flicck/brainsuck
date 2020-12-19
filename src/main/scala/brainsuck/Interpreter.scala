@@ -66,7 +66,7 @@ object Interpreter {
   }
 
   /**vm options: -Xss8m
-   * Program arguments: ../scripts/hanoi.b -0 2
+   * Program arguments: ../scripts/hanoi.b -O 2
    */
   def main(args: Array[String]): Unit = {
     val optionParser = new OptionParser[Config]("brainsuck") {
