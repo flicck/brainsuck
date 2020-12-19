@@ -16,14 +16,14 @@ class BrainsuckParser extends RegexParsers {
 
   def instruction: Parser[Instruction => Instruction] =
     (
-      "+" ^^^ { Add(1, _) }
-        | "-" ^^^ { Add(-1, _) }
-        | "<" ^^^ { Move(-1, _) }
-        | ">" ^^^ { Move(1, _) }
-        | "." ^^^ { Out(_) }
-        | "," ^^^ { In(_) }
+      "+" ^^^ { Add(1, _:Instruction) }
+        | "-" ^^^ { Add(-1, _:Instruction) }
+        | "<" ^^^ { Move(-1, _:Instruction) }
+        | ">" ^^^ { Move(1, _:Instruction) }
+        | "." ^^^ { Out(_:Instruction) }
+        | "," ^^^ { In(_:Instruction) }
         | "[" ~> instructions <~ "]" ^^ {
-          case body => Loop(body, _)
+          case body => Loop(body, _:Instruction)
         }
     )
 }

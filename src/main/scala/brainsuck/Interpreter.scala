@@ -2,14 +2,11 @@ package brainsuck
 
 import java.io.File
 
-import scala.collection.mutable.ArrayBuffer
-import scala.io.Source
-
+import brainsuck.RulesExecutor.{Batch, FixedPoint, Once}
 import scopt.OptionParser
 
-import brainsuck.RulesExecutor.Batch
-import brainsuck.RulesExecutor.FixedPoint
-import brainsuck.RulesExecutor.Once
+import scala.collection.mutable.ArrayBuffer
+import scala.io.Source
 
 class Memory(private val buffer: ArrayBuffer[Int] = ArrayBuffer.fill[Int](1024)(0)) {
   def same(that: Memory) =
@@ -68,6 +65,9 @@ object Interpreter {
     result
   }
 
+  /**vm options: -Xss8m
+   * Program arguments: ../scripts/hanoi.b -0 2
+   */
   def main(args: Array[String]): Unit = {
     val optionParser = new OptionParser[Config]("brainsuck") {
       head("brainsuck", "0.1.0")
@@ -87,7 +87,7 @@ object Interpreter {
     optionParser.parse(args, Config()).foreach {
       case Config(optimizationLevel, input) =>
         val code = benchmark("Parsing") {
-          BrainsuckParser(Source.fromFile(input, "UTF-8").mkString)
+          BrainsuckParser(Source.fromInputStream(getClass.getResourceAsStream(input.toString)).mkString)
         }
 
         val optimizer = new Optimizer {
